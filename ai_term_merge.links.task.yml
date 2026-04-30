@@ -1,0 +1,5 @@
+ai_term_merge.suggestions:
+  route_name: ai_term_merge.suggestions
+  title: 'AI Suggestions'
+  base_route: entity.taxonomy_vocabulary.overview_form
+  weight: 50

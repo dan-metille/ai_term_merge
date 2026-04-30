@@ -1,0 +1,7 @@
+enabled_vocabularies: []
+ai_provider_model: ''
+batch_size: 50
+detection_modes:
+  exact_duplicates: true
+  semantic_duplicates: true
+  quality_issues: true

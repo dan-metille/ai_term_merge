@@ -1,0 +1,14 @@
+services:
+  ai_term_merge.suggestion_generator:
+    class: Drupal\ai_term_merge\AiTermSuggestionGenerator
+    arguments:
+      - '@entity_type.manager'
+      - '@ai.provider'
+      - '@state'
+      - '@logger.factory'
+      - '@config.factory'
+
+  ai_term_merge.suggestion_storage:
+    class: Drupal\ai_term_merge\TermSuggestionStorage
+    arguments:
+      - '@state'

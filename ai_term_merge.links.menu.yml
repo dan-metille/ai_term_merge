@@ -1,0 +1,6 @@
+ai_term_merge.settings:
+  title: 'AI Term Merge'
+  route_name: ai_term_merge.settings
+  description: 'Configure AI-powered term duplicate detection and merging.'
+  parent: system.admin_config_ai
+  weight: 10

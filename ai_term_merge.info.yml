@@ -1,0 +1,10 @@
+name: 'AI Term Merge'
+type: module
+description: 'AI-powered taxonomy term duplicate detection and merge suggestions'
+package: AI
+core_version_requirement: ^11
+dependencies:
+  - drupal:taxonomy
+  - ai:ai
+  - term_merge:term_merge
+  - term_reference_change:term_reference_change

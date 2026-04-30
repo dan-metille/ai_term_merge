@@ -1,0 +1,61 @@
+ai_term_merge.settings:
+  path: '/admin/config/ai/term-merge'
+  defaults:
+    _form: '\Drupal\ai_term_merge\Form\SettingsForm'
+    _title: 'AI Term Merge Settings'
+  requirements:
+    _permission: 'administer taxonomy'
+  options:
+    _admin_route: TRUE
+
+ai_term_merge.suggestions:
+  path: '/admin/structure/taxonomy/manage/{taxonomy_vocabulary}/ai-suggestions'
+  defaults:
+    _controller: '\Drupal\ai_term_merge\Controller\SuggestionReviewController::reviewSuggestions'
+    _title: 'AI Suggestions'
+  requirements:
+    _permission: 'administer taxonomy'
+  options:
+    _admin_route: TRUE
+    parameters:
+      taxonomy_vocabulary:
+        type: entity:taxonomy_vocabulary
+
+ai_term_merge.analyze:
+  path: '/admin/structure/taxonomy/manage/{taxonomy_vocabulary}/ai-suggestions/analyze'
+  defaults:
+    _controller: '\Drupal\ai_term_merge\Controller\SuggestionReviewController::analyze'
+    _title: 'Analyze Vocabulary'
+  requirements:
+    _permission: 'administer taxonomy'
+  options:
+    _admin_route: TRUE
+    parameters:
+      taxonomy_vocabulary:
+        type: entity:taxonomy_vocabulary
+
+ai_term_merge.merge_confirm:
+  path: '/admin/structure/taxonomy/manage/{taxonomy_vocabulary}/ai-suggestions/{suggestion_id}/merge'
+  defaults:
+    _form: '\Drupal\ai_term_merge\Form\MergeSuggestionForm'
+    _title: 'Confirm Merge'
+  requirements:
+    _permission: 'administer taxonomy'
+  options:
+    _admin_route: TRUE
+    parameters:
+      taxonomy_vocabulary:
+        type: entity:taxonomy_vocabulary
+
+ai_term_merge.reject:
+  path: '/admin/structure/taxonomy/manage/{taxonomy_vocabulary}/ai-suggestions/{suggestion_id}/reject'
+  defaults:
+    _controller: '\Drupal\ai_term_merge\Controller\SuggestionReviewController::rejectSuggestion'
+    _title: 'Reject Suggestion'
+  requirements:
+    _permission: 'administer taxonomy'
+  options:
+    _admin_route: TRUE
+    parameters:
+      taxonomy_vocabulary:
+        type: entity:taxonomy_vocabulary

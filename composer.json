@@ -1,0 +1,14 @@
+{
+    "name": "drupal/ai_term_merge",
+    "type": "drupal-module",
+    "description": "AI-powered taxonomy term duplicate detection and merge suggestions.",
+    "version": "1.0.x-dev",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.3",
+        "drupal/core": "^11",
+        "drupal/ai": "^1.0",
+        "drupal/term_merge": "^2.0"
+    }
+}

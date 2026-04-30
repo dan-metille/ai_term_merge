@@ -1,0 +1,4 @@
+administer ai term merge:
+  title: 'Administer AI Term Merge'
+  description: 'Configure AI-powered term duplicate detection settings.'
+  restrict access: true
