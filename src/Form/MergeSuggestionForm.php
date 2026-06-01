@@ -93,7 +93,16 @@ class MergeSuggestionForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, VocabularyInterface $taxonomy_vocabulary = NULL, string $suggestion_id = NULL) {
+  public function buildForm(
+    array $form,
+    FormStateInterface $form_state,
+    ?VocabularyInterface $taxonomy_vocabulary = NULL,
+    ?string $suggestion_id = NULL,
+  ) {
+    if ($taxonomy_vocabulary === NULL || $suggestion_id === NULL) {
+      throw new \InvalidArgumentException('Missing required route parameters for merge suggestion form.');
+    }
+
     $this->vocabulary = $taxonomy_vocabulary;
     $this->suggestionId = $suggestion_id;
 
