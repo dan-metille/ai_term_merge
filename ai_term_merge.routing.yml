@@ -23,8 +23,9 @@ ai_term_merge.suggestions:
 
 ai_term_merge.analyze:
   path: '/admin/structure/taxonomy/manage/{taxonomy_vocabulary}/ai-suggestions/analyze'
+  methods: [GET, POST]
   defaults:
-    _controller: '\Drupal\ai_term_merge\Controller\SuggestionReviewController::analyze'
+    _form: '\Drupal\ai_term_merge\Form\AnalyzeVocabularyForm'
     _title: 'Analyze Vocabulary'
   requirements:
     _permission: 'administer taxonomy'
@@ -49,8 +50,9 @@ ai_term_merge.merge_confirm:
 
 ai_term_merge.reject:
   path: '/admin/structure/taxonomy/manage/{taxonomy_vocabulary}/ai-suggestions/{suggestion_id}/reject'
+  methods: [GET, POST]
   defaults:
-    _controller: '\Drupal\ai_term_merge\Controller\SuggestionReviewController::rejectSuggestion'
+    _form: '\Drupal\ai_term_merge\Form\RejectSuggestionForm'
     _title: 'Reject Suggestion'
   requirements:
     _permission: 'administer taxonomy'

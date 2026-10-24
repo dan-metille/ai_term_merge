@@ -8,21 +8,12 @@ use Drupal\Core\Link;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\taxonomy\VocabularyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\ai_term_merge\AiTermSuggestionGenerator;
 use Drupal\ai_term_merge\TermSuggestionStorage;
 
 /**
  * Controller for suggestion review interface.
  */
 class SuggestionReviewController extends ControllerBase {
-
-  /**
-   * The suggestion generator service.
-   *
-   * @var \Drupal\ai_term_merge\AiTermSuggestionGenerator
-   */
-  protected AiTermSuggestionGenerator $suggestionGenerator;
 
   /**
    * The suggestion storage service.
@@ -43,7 +34,6 @@ class SuggestionReviewController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
-    $instance->suggestionGenerator = $container->get('ai_term_merge.suggestion_generator');
     $instance->suggestionStorage = $container->get('ai_term_merge.suggestion_storage');
     $instance->dateFormatter = $container->get('date.formatter');
     return $instance;
@@ -213,52 +203,6 @@ class SuggestionReviewController extends ControllerBase {
       '#rows' => $rows,
       '#empty' => $this->t('No suggestions found.'),
     ];
-  }
-
-  /**
-   * Analyze vocabulary and generate suggestions.
-   *
-   * @param \Drupal\taxonomy\VocabularyInterface $taxonomy_vocabulary
-   *   The vocabulary.
-   *
-   * @return \Symfony\Component\HttpFoundation\RedirectResponse
-   *   Redirect to review page.
-   */
-  public function analyze(VocabularyInterface $taxonomy_vocabulary): RedirectResponse {
-    $vocabulary_id = $taxonomy_vocabulary->id();
-
-    try {
-      $suggestions = $this->suggestionGenerator->generateSuggestions($vocabulary_id);
-      $this->messenger()->addStatus($this->t('Analysis complete. Found @count suggestion groups.', [
-        '@count' => count($suggestions),
-      ]));
-    }
-    catch (\Exception $e) {
-      $this->messenger()->addError($this->t('Analysis failed: @error', [
-        '@error' => $e->getMessage(),
-      ]));
-    }
-
-    return $this->redirect('ai_term_merge.suggestions', ['taxonomy_vocabulary' => $vocabulary_id]);
-  }
-
-  /**
-   * Reject a suggestion.
-   *
-   * @param \Drupal\taxonomy\VocabularyInterface $taxonomy_vocabulary
-   *   The vocabulary.
-   * @param string $suggestion_id
-   *   The suggestion ID.
-   *
-   * @return \Symfony\Component\HttpFoundation\RedirectResponse
-   *   Redirect to review page.
-   */
-  public function rejectSuggestion(VocabularyInterface $taxonomy_vocabulary, string $suggestion_id): RedirectResponse {
-    $vocabulary_id = $taxonomy_vocabulary->id();
-    $this->suggestionStorage->removeSuggestion($vocabulary_id, $suggestion_id);
-    $this->messenger()->addStatus($this->t('Suggestion rejected.'));
-
-    return $this->redirect('ai_term_merge.suggestions', ['taxonomy_vocabulary' => $vocabulary_id]);
   }
 
 }

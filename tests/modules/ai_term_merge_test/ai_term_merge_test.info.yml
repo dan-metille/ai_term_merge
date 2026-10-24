@@ -1,0 +1,6 @@
+name: AI Term Merge test
+type: module
+package: Testing
+core_version_requirement: ^11
+dependencies:
+  - ai_term_merge:ai_term_merge
